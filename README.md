@@ -35,3 +35,12 @@ docker compose exec restic restic restore bb4f131a \
   --target /recover \
   --include /sources/example/nom_du_fichier
 ```
+
+## clear
+
+Pour retirer les snapshots taggées "example" :
+
+```bash
+docker compose exec restic restic forget \
+  --tag example --unsafe-allow-remove-all --prune
+```
