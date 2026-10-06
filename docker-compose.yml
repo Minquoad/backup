@@ -1,0 +1,16 @@
+services:
+  restic:
+    build: .
+    container_name: backup-restic
+    hostname: backup-restic
+    restart: unless-stopped
+    environment:
+      RESTIC_REPOSITORY: /repository
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      BACKUP_TIME_UTC: ${BACKUP_TIME_UTC:-04:00}
+    volumes:
+      - ./data:/repository
+      - ./recover:/recover
+
+      - /opt/bak_test:/sources/bak_test:ro
+      - /opt/bak_test_2:/sources/bak_test_2:ro
