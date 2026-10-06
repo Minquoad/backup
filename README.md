@@ -25,6 +25,7 @@ Je veux donc sauvegarder pour l'instant deux types de choses :
 Pour les bases de données ça peut se faire par `mariadb-dump ...`. La taille de ces fichiers est assez raisonnable pour en garder un bon nombre avec une rotation gérée par `backup_cleaner.py`.
 
 Cette solution pour les bdd me convient, il faudra cependant la centraliser ici.
+La solution doit être entièrement containerisée afin de ne rien installer sur la machine (mariadb-client par exemple).
 
 ## Fichiers
 
@@ -40,4 +41,4 @@ Problème : la données est dipliquée (3 backup = trois fois la place occupée)
 
 Le but de ce projet est de centraliser la gestion de ces backup et de trouver une solution au problème de l'espace occupé par les `*.tar.gz`.
 
-La solution doit être entièrement containerisée afin de ne rien installer sur la machine (mariadb-client par exemple).
+Une solution avec un comportement git-like serait bien pour pouvoir revenir dans le temps à n'importe quel moment mais sans dupliquer le stockage.
