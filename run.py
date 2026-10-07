@@ -19,6 +19,7 @@ class Backup:
             self.backup()
 
     def backup(self):
+        start = time.monotonic()
         for source in sorted(Path("/sources").iterdir()):
             if not source.is_dir():
                 continue
@@ -29,6 +30,9 @@ class Backup:
             )
             if result.returncode != 0:
                 print(f"Échec pour {source.name} : code {result.returncode}")
+
+        duration = timedelta(seconds=round(time.monotonic() - start))
+        print(f"Durée totale des sauvegardes : {duration}")
 
 
 if __name__ == "__main__":
