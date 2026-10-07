@@ -1,6 +1,6 @@
 FROM restic/restic:0.19.1
 
-RUN apk add --no-cache python3
+RUN apk add --no-cache python3 docker-cli
 
 WORKDIR /app
 COPY src/ .
