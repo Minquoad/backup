@@ -1,0 +1,13 @@
+{
+    "directories": [
+        {
+            "tag": "example",
+            "paths": [
+                "/opt/example"
+            ],
+            "exclude": [
+                "excluded"
+            ]
+        }
+    ]
+}

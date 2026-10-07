@@ -33,7 +33,7 @@ Pour récupérer un fichier précis :
 ```bash
 docker compose exec restic restic restore bb4f131a \
   --target /recover \
-  --include /sources/example/nom_du_fichier
+  --include /opt/example/nom_du_fichier
 ```
 
 ## clear

@@ -7,23 +7,9 @@ services:
     environment:
       RESTIC_REPOSITORY: /repository
       RESTIC_PASSWORD: ${RESTIC_PASSWORD}
-      BACKUP_TIME_UTC: ${BACKUP_TIME_UTC:-04:00}
+      BACKUP_TIME_UTC: ${BACKUP_TIME_UTC:-00:00}
     volumes:
       - ./data:/repository
       - ./recover:/recover
-
-      - /opt/blog-justine/wordpress-data:/sources/blog-justine/wordpress-data:ro
-
-      - /opt/hermes/harlan/agent-data:/sources/hermes/harlan/agent-data:ro
-      - /opt/hermes/harlan/storage-data:/sources/hermes/harlan/storage-data:ro
-      - /opt/hermes/harlan/webui-data:/sources/hermes/harlan/webui-data:ro
-      - /opt/hermes/arlette/agent-data:/sources/hermes/arlette/agent-data:ro
-      - /opt/hermes/arlette/storage-data:/sources/hermes/arlette/storage-data:ro
-      - /opt/hermes/arlette/webui-data:/sources/hermes/arlette/webui-data:ro
-      - /opt/hermes/shared-data:/sources/hermes/shared-data:ro
-
-      - /opt/home-assistant/data:/sources/home-assistant/data:ro
-
-      - /opt/nextcloud/app-data:/sources/nextcloud/app-data:ro
-
-      - /opt/politicodex/test/storage/app:/sources/politicodex/test/storage/app:ro
+      - ./conf:/conf:ro
+      - /opt:/opt:ro

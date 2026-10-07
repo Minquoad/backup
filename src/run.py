@@ -1,3 +1,4 @@
+import json
 import os
 import subprocess
 import time
@@ -7,7 +8,7 @@ from pathlib import Path
 
 class Backup:
     def run(self):
-        backup_time = datetime.strptime(os.getenv("BACKUP_TIME_UTC", "04:00"), "%H:%M").time()
+        backup_time = datetime.strptime(os.environ["BACKUP_TIME_UTC"], "%H:%M").time()
         while True:
             now = datetime.now(timezone.utc)
             next_run = now.replace(hour=backup_time.hour, minute=backup_time.minute, second=0, microsecond=0)
@@ -20,16 +21,18 @@ class Backup:
 
     def backup(self):
         start = time.monotonic()
-        for source in sorted(Path("/sources").iterdir()):
-            if not source.is_dir():
-                continue
+        config = json.loads(Path("/conf/entries.json").read_text())
+        for directory in config.get("directories", []):
+            tag = directory["tag"]
+            command = ["restic", "backup", "--tag", tag]
+            for pattern in directory.get("exclude", []):
+                command.extend(["--exclude", pattern])
+            command.extend(["--", *directory["paths"]])
 
-            print(f"Sauvegarde de {source.name}")
-            result = subprocess.run(
-                ["restic", "backup", str(source), "--tag", source.name]
-            )
+            print(f"Sauvegarde de {tag}")
+            result = subprocess.run(command)
             if result.returncode != 0:
-                print(f"Échec pour {source.name} : code {result.returncode}")
+                print(f"Échec pour {tag} : code {result.returncode}")
 
         duration = timedelta(seconds=round(time.monotonic() - start))
         print(f"Durée totale des sauvegardes : {duration}")
