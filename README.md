@@ -38,9 +38,15 @@ docker compose exec restic restic restore bb4f131a \
 
 ## clear
 
+Pour retirer les snapshot bb4f131a et c3411130 :
+
+```bash
+docker compose exec restic restic forget --prune bb4f131a c3411130
+```
+
 Pour retirer les snapshots taggées "example" :
 
 ```bash
 docker compose exec restic restic forget \
-  --tag example --unsafe-allow-remove-all --prune
+  --prune --unsafe-allow-remove-all --tag example
 ```
