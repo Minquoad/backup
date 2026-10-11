@@ -1,13 +1,22 @@
 {
     "directories": [
         {
-            "tag": "example",
+            "tag": "example.d",
             "paths": [
                 "/opt/example"
             ],
             "exclude": [
                 "excluded"
             ]
+        }
+    ],
+    "databases": [
+        {
+            "tag": "example.sql",
+            "container" : "example-db",
+            "db_name_env": "MYSQL_DATABASE",
+            "db_user_env": "MYSQL_USER",
+            "db_pass_env": "MYSQL_PASSWORD"
         }
     ]
 }
